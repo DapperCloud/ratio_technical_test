@@ -40,6 +40,31 @@ func (c *City) AddRoadTo(direction Direction, city *City) error {
 	return nil
 }
 
+type Road struct {
+	Direction   Direction
+	Destination CityId
+}
+
+/*
+Returns the city id
+ */
+func (c City) GetId() CityId {
+	return c.id
+}
+
+/*
+Returns the roads going out of this city.
+ */
+func (c City) GetRoads() []Road {
+	roads := make([]Road, len(c.outgoingRoads))
+	i := 0
+	for direction, destination := range c.outgoingRoads {
+		roads[i] = Road{Direction: direction, Destination: destination.id}
+		i++
+	}
+	return roads
+}
+
 /*
 Destroys the city.
 All roads to and from this city will be destroyed.

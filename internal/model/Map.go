@@ -43,22 +43,22 @@ func (m *Map) AddRoad(fromId CityId, toId CityId, direction Direction) error {
 	return err
 }
 
-type Road struct {
-	Direction Direction
-	Destination CityId
+/*
+Returns the map of cities
+ */
+func (m Map) GetCities() map[CityId]*City {
+	return m.cities
 }
+
+/*
+Returns the roads going out from a city.
+ */
 func (m Map) GetRoadsFrom(id CityId) ([]Road, error) {
 	city, present := m.cities[id]
 	if !present {
 		return nil, errors.New(fmt.Sprintf("City %v not found in map", id))
 	}
-	roads := make([]Road, len(city.outgoingRoads))
-	i := 0
-	for direction, destination := range city.outgoingRoads {
-		roads[i] = Road{Direction: direction, Destination: destination.id}
-		i++
-	}
-	return roads, nil
+	return city.GetRoads(), nil
 }
 
 /*

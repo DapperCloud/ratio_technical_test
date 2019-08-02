@@ -66,6 +66,17 @@ func (c City) GetRoads() []Road {
 }
 
 /*
+Returns the City in given direction, or an error if no city in that direction
+ */
+func (c City) GetCityInDirection(direction Direction) (*City, error) {
+ 	city, present := c.outgoingRoads[direction]
+ 	if !present {
+ 		return nil, errors.New(fmt.Sprintf("City %v has no road going in direction %v", c.id, direction))
+	}
+	return city, nil
+}
+
+/*
 Destroys the city.
 All roads to and from this city will be destroyed.
  */

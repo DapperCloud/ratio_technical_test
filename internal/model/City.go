@@ -11,10 +11,12 @@ type City struct {
 	id            CityId
 	outgoingRoads map[Direction]*City
 	incomingRoads map[*City]Direction
+
+	monsters map[MonsterId]*Monster
 }
 
 func NewCity(id CityId) City {
-	return City{id: id, outgoingRoads: make(map[Direction]*City), incomingRoads: make(map[*City]Direction)}
+	return City{id: id, outgoingRoads: make(map[Direction]*City), incomingRoads: make(map[*City]Direction), monsters: make(map[MonsterId]*Monster)}
 }
 
 /*
@@ -69,11 +71,32 @@ func (c City) GetRoads() []Road {
 Returns the City in given direction, or an error if no city in that direction
  */
 func (c City) GetCityInDirection(direction Direction) (*City, error) {
- 	city, present := c.outgoingRoads[direction]
- 	if !present {
- 		return nil, errors.New(fmt.Sprintf("City %v has no road going in direction %v", c.id, direction))
+	city, present := c.outgoingRoads[direction]
+	if !present {
+		return nil, errors.New(fmt.Sprintf("City %v has no road going in direction %v", c.id, direction))
 	}
 	return city, nil
+}
+
+/*
+Returns the ids of monsters in this City
+ */
+func (c City) GetMonsters() map[MonsterId]*Monster {
+	return c.monsters
+}
+
+/*
+Adds a monster to this City
+ */
+func (c *City) AddMonster(m *Monster) {
+	c.monsters[m.GetId()] = m
+}
+
+/*
+Removes a monster from this city
+ */
+func (c *City) RemoveMonster(m *Monster) {
+	delete(c.monsters, m.id)
 }
 
 /*

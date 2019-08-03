@@ -10,27 +10,31 @@ type Monster struct {
 }
 
 func NewMonster(id MonsterId, position *City) Monster {
-	return Monster{id: id, position: position}
+	newMonster := Monster{id: id, position: position}
+	position.AddMonster(&newMonster)
+	return newMonster
 }
 
 /*
-The monster makes a move, and returns its new position, or nil if it couldn't move
+The monster makes a move, and returns its new position
  */
 func (m *Monster) Move() *City {
 	roads := m.position.GetRoads()
 	roadsNumber := len(roads)
 	if roadsNumber == 0 {
-		return nil
+		return m.position
 	}
 	roadIndex := 0
 	if roadsNumber > 1 {
-		roadIndex = rand.Intn(len(roads) - 1)
+		roadIndex = rand.Intn(len(roads))
 	}
 	newPosition, err := m.position.GetCityInDirection(roads[roadIndex].Direction)
 	if err != nil {
 		panic(err)
 	}
+	m.position.RemoveMonster(m)
 	m.position = newPosition
+	m.position.AddMonster(m)
 	return m.position
 }
 
@@ -39,4 +43,11 @@ Returns the monster id
  */
 func (m Monster) GetId() MonsterId {
 	return m.id
+}
+
+/*
+Returns the monster position
+ */
+func (m Monster) GetPosition() *City {
+	return m.position
 }

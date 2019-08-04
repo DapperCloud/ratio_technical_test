@@ -116,7 +116,7 @@ func TestPlayTurn_With2Cities1RoadMap_ShouldFinishAfterOneTurn(t *testing.T) {
 	if len(game.monsters) != 0 {
 		t.Errorf("All monsters should be dead, but %v are remaining", len(game.monsters))
 	}
-	monsterNames := make([]string, 100)
+	monsterNames := make([]string, 0, 100)
 	for i := range monsterNames {
 		monsterNames[i] = "monster " + strconv.Itoa(i+1)
 	}

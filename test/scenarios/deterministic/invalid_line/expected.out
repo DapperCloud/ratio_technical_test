@@ -1,0 +1,1 @@
+error while reading the map file: Error reading line 2: Cannot parse direction 'foo', must be one of: west,east,south,north

@@ -1,0 +1,3 @@
+A north=B
+B south=A east=D
+C east=A

@@ -19,7 +19,7 @@ func NewMapReader(reader io.Reader) MapReader {
 
 func (m MapReader) GetMap() (model.Map, error) {
 	resultMap := model.NewMap()
-	cities := make([]City, 1000)
+	cities := make([]City, 0, 1000)
 
 	scanner := bufio.NewScanner(m.reader)
 	scanner.Split(bufio.ScanLines)
@@ -40,7 +40,7 @@ func (m MapReader) GetMap() (model.Map, error) {
 		for _, road := range city.roads {
 			err := resultMap.AddRoad(city.id, road.destination, road.direction)
 			if err != nil {
-				return model.Map{}, errors.New(fmt.Sprintf("Error on line %v: %v", index, err.Error()))
+				return model.Map{}, errors.New(fmt.Sprintf("Error on line %v: %v", index+1, err.Error()))
 			}
 		}
 	}

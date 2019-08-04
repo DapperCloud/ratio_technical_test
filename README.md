@@ -29,3 +29,8 @@ To run the unit tests, simply do:
 ```
 $> make test
 ```
+
+There are also a few integration tests. Run them with:
+```
+$> make integration-test
+```

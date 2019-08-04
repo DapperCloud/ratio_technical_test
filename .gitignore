@@ -8,9 +8,6 @@
 # Test binary, build with `go test -c`
 *.test
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-
 # Intellij project files
 .idea/*
 *.iml
@@ -20,3 +17,6 @@
 
 # bin directory
 bin/*
+
+# ignore test output files
+*actual.out

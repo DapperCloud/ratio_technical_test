@@ -1,4 +1,4 @@
-.PHONY: all clean build test
+.PHONY: all clean build test integration-test
 
 all:
 	make build
@@ -12,4 +12,9 @@ clean:
 test:
 	go clean -testcache
 	go test ./internal/...
+
+integration-test:
+	make build
+	go clean -testcache
+	go test ./test/...
 

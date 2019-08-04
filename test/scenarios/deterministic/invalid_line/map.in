@@ -1,0 +1,3 @@
+A north=B
+B south=A foo=C
+C east=A

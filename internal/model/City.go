@@ -33,7 +33,7 @@ func (c *City) AddRoadTo(direction Direction, city *City) error {
 	}
 	for existingDirection, existingNeighbour := range c.outgoingRoads {
 		if existingDirection != direction && existingNeighbour == city {
-			return errors.New(fmt.Sprintf("City %v already has a road to %v in direction %v, so cannot add a new road to id",
+			return errors.New(fmt.Sprintf("City %v already has a road to %v in direction %v, so cannot add a new road to it",
 				c.id, existingNeighbour, existingDirection))
 		}
 	}

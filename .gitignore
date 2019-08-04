@@ -17,3 +17,6 @@
 
 # ignore *.txt files for convenience
 *.txt
+
+# bin directory
+bin/*
